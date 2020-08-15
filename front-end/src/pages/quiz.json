@@ -1,0 +1,38 @@
+[
+  {
+    "question": "When the equation for the reaction represented above is balanced and all coefficients are reduced to lowest whole-number terms, the coefficient for HCl is:\n_BCl3(g) + _H2(g) -> _HCl(g) + _B(g)",
+    "answers": [
+      { "text": "1", "correct": false },
+      { "text": "2", "correct": false },
+      { "text": "4", "correct": false },
+      { "text": "6", "correct": true }
+    ]
+  },
+  {
+    "question": "To determine whether a water solution of Na2S2O3 at room temperature is supersaturated, one can:",
+    "answers": [
+      { "text": "heat the solution to its boiling point", "correct": false },
+      { "text": "add a crystal of Na2S2O3 to the solution", "correct": true },
+      { "text": "acidify the solution", "correct": false },
+      { "text": "cool the solution to its freezing point", "correct": false }
+    ]
+  },
+  {
+    "question": "According to the reaction represented by the unbalanced equation above, how many moles of text SO2 are required to react completely with 1 mole of O2?",
+    "answers": [
+      { "text": "0.5 mol", "correct": false },
+      { "text": "1 mol", "correct": false },
+      { "text": "2 mol", "correct": true },
+      { "text": "3 mol", "correct": false }
+    ]
+  },
+  {
+    "question": "The number of oxygen atoms in 0.50 mole of KHSO4 end subscript is",
+    "answers": [
+      { "text": "1.2 x 10 ^ 23", "correct": false },
+      { "text": "2.4 x 10 ^ 23", "correct": false },
+      { "text": "3.0 x 10 ^ 23", "correct": false },
+      { "text": "1.2 x 10 ^ 24", "correct": true }
+    ]
+  }
+]
