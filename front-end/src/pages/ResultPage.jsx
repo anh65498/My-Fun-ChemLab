@@ -13,50 +13,15 @@ class ResultPage extends React.Component {
   
   constructor() {
     super();
-    this.state = { data: {} };
+    this.state = { data: [],
+                  isLoaded: false };
   }
 
   // @alexandra_chirita added function for database query 
-  async componentDidMount(): Promise<void> {
-    try {
-      const response = await fetch('https://pg-app-hh3vkhgay7334zu3vh9917fdyhrsyw.scalabl.cloud/1/classes/Chemical_Reactions', {
-        method:'GET',
-        headers: {
-          "X-Parse-Application-Id": "DJONj9M6G3IBwGy3QvgjtOKD8ECR5DTQEKAQRKcz",
-          "X-Parse-Rest-Api-Key": "BoxBHlH6rOD2Q2b3wJHBcLBxzATXN8QREEKpRTLc"
-        }
-      })
-  .then(function(response) {
-      return response.text();
-  })
-  .then(function(data){
-      var obj = null;
-      var data_obj = JSON.parse(data);
-      var count = Object.keys(data_obj.results).length;
-      for (var i = 0; i < count; i++) {
-        if (data_obj.results[i].Reactants == "H2O")
-          {
-            obj = data_obj.results[i];
-            break;
-          }
-      }
-      console.log([obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3]);
-
-      return [obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3];
-  })
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
-    await new Promise(resolve => { setTimeout(resolve, 10000); });
-    this.state.data = response;
-    return Promise.resolve();
-}
-  
+ 
   render() {
+    
+  //while (this.state.isLoaded == false);
     return (
       <Fragment>
         <div id="background">
@@ -94,6 +59,7 @@ class ResultPage extends React.Component {
             </Grid>
           </Grid>
           <Typography>H2O + CO2 = H2CO3</Typography>
+
         </div>
       </Fragment>
     );
