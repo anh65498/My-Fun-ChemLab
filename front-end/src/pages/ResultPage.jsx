@@ -16,9 +16,10 @@ const ResultPage = () => {
         <Grid container alignItems="center" className={classes.grid}>
           <Grid item xs={3}>
             <iframe
-              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=eb6fee18-08ff-412a-a27e-575cf66ba1b1"
+              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=f317da3d-5fc8-44c2-8af5-ff686db0c0e4"
               allow="camera *"
             />
+            <Typography>Methane</Typography>
           </Grid>
           <Grid item xs={1}>
             <Typography variant="h1" display="inline">
@@ -27,9 +28,10 @@ const ResultPage = () => {
           </Grid>
           <Grid item xs={3}>
             <iframe
-              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=cde64334-4e36-43e2-bc88-e6c96c312dc7"
+              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=e612c1d3-bc72-49f7-b048-3a41888518ab"
               allow="camera *"
             />
+            <Typography>Hydrogen</Typography>
           </Grid>
           <Grid item xs={2}>
             <Typography variant="h1" display="inline">
@@ -38,11 +40,13 @@ const ResultPage = () => {
           </Grid>
           <Grid item xs={3}>
             <iframe
-              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=cde64334-4e36-43e2-bc88-e6c96c312dc7"
+              src="https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=32952071-4354-4fe3-9db1-ef365081d222"
               allow="camera *"
             />
+            <Typography>Water</Typography>
           </Grid>
         </Grid>
+        <Typography>H2O + CO2 = H2CO3</Typography>
       </div>
     </Fragment>
   );
