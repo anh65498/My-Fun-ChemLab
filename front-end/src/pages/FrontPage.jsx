@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Button,
@@ -124,6 +125,8 @@ const FrontPage = () => {
                 color="primary"
                 size="large"
                 className={classes.submitButton}
+                component={RouterLink}
+                to="/result"
               >
                 Enter
               </Button>
@@ -136,4 +139,4 @@ const FrontPage = () => {
   );
 };
 
-export default FrontPage;
+export default withRouter(FrontPage);
