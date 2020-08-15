@@ -19,7 +19,9 @@ class ResultPage extends React.Component {
   // @alexandra_chirita added function for database query 
  
   async componentDidMount() {
-    var getEcho = async () => {
+
+
+    var getEcho = new Promise(async () => {
 
     var result = fetch('https://pg-app-hh3vkhgay7334zu3vh9917fdyhrsyw.scalabl.cloud/1/classes/Chemical_Reactions', {
       method:'GET',
@@ -46,14 +48,15 @@ class ResultPage extends React.Component {
 
         return [obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3];
     })
-  };
+  });
 
-  this.state.data = getEcho();
+  this.state.data = await getEcho;
   this.state.load = true;
+  console.log("Result" + this.state.data);
   }
 
   render() {
-    while(this.state.load == false);
+  
     return (
       <Fragment>
         <div id="background">
