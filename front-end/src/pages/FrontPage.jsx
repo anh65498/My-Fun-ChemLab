@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     padding: theme.spacing(2, 10),
   },
-}));
+});
 
 const inputProps = {
   color: "#000",
@@ -53,18 +53,17 @@ class FrontPage extends React.Component {
     this.state = { chemString: "" };
   }
 
-  // const classes = useStyles();
-  // let [chemString, setChemString] = useState("");
-
-  handleChange(event) {
+  handleChange = (event) => {
     event.preventDefault();
+    const input = event.target.value;
+
     this.setState(() => ({
-      chemString: event.target.value,
+      chemString: input,
     }));
     console.log(this.state.chemString);
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     alert("Submitting");
 
@@ -76,6 +75,7 @@ class FrontPage extends React.Component {
       };
       console.log(`Sending ${this.state.chemString}`);
       this.props.handleProps(this.state.chemString);
+      this.props.history.push("/result");
 
       // axios
       //   .post("http://hegemon.ucsd.edu:/users/register", data)
@@ -83,7 +83,7 @@ class FrontPage extends React.Component {
       //     console.log(response);
       //   });
     }
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -108,15 +108,12 @@ class FrontPage extends React.Component {
                 MY FUN CHEM LAB
               </Typography>
 
-              {/* <Box display="block"> */}
-
               <form
                 className={classes.form}
                 onSubmit={this.handleSubmit}
                 noValidate
                 autoComplete="off"
               >
-                {/* <Container display="flex" justifyContent="center"> */}
                 <Box>
                   <TextField
                     id="inputString"
@@ -137,13 +134,10 @@ class FrontPage extends React.Component {
                   color="primary"
                   size="large"
                   className={classes.submitButton}
-                  component={RouterLink}
                   to="/result"
                 >
                   Enter
                 </Button>
-
-                {/* </Container> */}
               </form>
             </Grid>
           </Grid>
@@ -153,4 +147,4 @@ class FrontPage extends React.Component {
   }
 }
 
-export default withRouter(FrontPage);
+export default withStyles(styles, { withTheme: true })(FrontPage);
