@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 class ResultPage extends React.Component {
   constructor() {
     super();
-    this.state = { data: [] };
+    this.state = { data: {} };
   }
 
   componentDidMount() {
@@ -35,15 +35,14 @@ class ResultPage extends React.Component {
         var data_obj = JSON.parse(data);
         var count = Object.keys(data_obj.results).length;
         for (var i = 0; i < count; i++) {
-          if (data_obj.results[i].Reactants == "CH4") {
+          if (data_obj.results[i].Reactants == "CH4" || data_obj.results[i].Word_Name == "methan") {
             obj = data_obj.results[i];
             break;
           }
         }
         self.setState({
-          data: [obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3],
+          data: obj,
         });
-        console.log("Initiate data in componentDidMount()", self.state.data[0]);
       });
   }
 
@@ -58,11 +57,11 @@ class ResultPage extends React.Component {
               <iframe
                 src={
                   "https://console.echoar.xyz/webar?key=dry-rain-8136&entry=" +
-                  this.state.data[0]
+                  this.state.data.EchoAR_Link
                 }
                 allow="camera *"
               />
-              <Typography>Methane</Typography>
+            
             </Grid>
             <Grid item xs={1}>
               <Typography variant="h1" display="inline">
@@ -72,11 +71,12 @@ class ResultPage extends React.Component {
             <Grid item xs={3}>
               <iframe
                 src={
-                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="
+                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=" +
+                  this.state.data.EchoAR_Link2
                 }
                 allow="camera *"
               />
-              <Typography>Hydrogen</Typography>
+             
             </Grid>
             <Grid item xs={2}>
               <Typography variant="h1" display="inline">
@@ -86,15 +86,15 @@ class ResultPage extends React.Component {
             <Grid item xs={3}>
               <iframe
                 src={
-                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="
+                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=" +
+                  this.state.data.EchoAR_Link3
                 }
                 allow="camera *"
               />
-              <Typography>Water</Typography>
             </Grid>
           </Grid>
           <Typography>H2O + CO2 = H2CO3</Typography>
-          <Typography>{this.state.data}</Typography>
+          <Typography>{this.state.data.Words_Name + " " + this.state.data.Words_Result}</Typography>
         </div>
       </Fragment>
     );
