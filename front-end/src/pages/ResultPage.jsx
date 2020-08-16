@@ -24,6 +24,7 @@ class ResultPage extends React.Component {
   // @alexandra_chirita added fetch method
    componentDidMount() {
     let self = this;
+    let search = this.props.chemString;
     fetch(
       "https://pg-app-hh3vkhgay7334zu3vh9917fdyhrsyw.scalabl.cloud/1/classes/Chemical_Reactions",
       {
@@ -42,7 +43,7 @@ class ResultPage extends React.Component {
         var data_obj = JSON.parse(data);
         var count = Object.keys(data_obj.results).length;
         for (var i = 0; i < count; i++) {
-          if (data_obj.results[i].Reactants === this.props.chemString || data_obj.results[i].Word_Name === this.props.chemString) {
+          if (data_obj.results[i].Reactants === search || data_obj.results[i].Word_Name === search) {
             obj = data_obj.results[i];
             break;
           }
