@@ -10,58 +10,56 @@ const useStyles = makeStyles((theme) => ({
 
 // @alexandra_chirita changed the name from const to class
 class ResultPage extends React.Component {
-  
   constructor() {
     super();
-    this.state = { data: []};
+    this.state = { data: [] };
   }
 
-  // @alexandra_chirita added function for database query 
-
-
-  async componentDidMount() {
-
-
-    return new Promise(async () => {
-
-    this.state.data = fetch('https://pg-app-hh3vkhgay7334zu3vh9917fdyhrsyw.scalabl.cloud/1/classes/Chemical_Reactions', {
-      method:'GET',
-      headers: {
-        "X-Parse-Application-Id": "DJONj9M6G3IBwGy3QvgjtOKD8ECR5DTQEKAQRKcz",
-        "X-Parse-Rest-Api-Key": "BoxBHlH6rOD2Q2b3wJHBcLBxzATXN8QREEKpRTLc"
+  componentDidMount() {
+    let self = this;
+    fetch(
+      "https://pg-app-hh3vkhgay7334zu3vh9917fdyhrsyw.scalabl.cloud/1/classes/Chemical_Reactions",
+      {
+        method: "GET",
+        headers: {
+          "X-Parse-Application-Id": "DJONj9M6G3IBwGy3QvgjtOKD8ECR5DTQEKAQRKcz",
+          "X-Parse-Rest-Api-Key": "BoxBHlH6rOD2Q2b3wJHBcLBxzATXN8QREEKpRTLc",
+        },
       }
-    })
-    .then(function(response) {
+    )
+      .then(function (response) {
         return response.text();
-    })
-    .then(function(data){
+      })
+      .then(function (data) {
         var obj = null;
         var data_obj = JSON.parse(data);
         var count = Object.keys(data_obj.results).length;
         for (var i = 0; i < count; i++) {
-          if (data_obj.results[i].Reactants == "CH4")
-            {
-              obj = data_obj.results[i];
-              break;
-            }
+          if (data_obj.results[i].Reactants == "CH4") {
+            obj = data_obj.results[i];
+            break;
+          }
         }
-
-        console.log([obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3]);
-        return [obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3];
-    })
-  });
+        self.setState({
+          data: [obj.EchoAR_Link, obj.EchoAR_Link2, obj.EchoAR_Link3],
+        });
+        console.log("Initiate data in componentDidMount()", self.state.data[0]);
+      });
   }
 
   render() {
-  console.log("Result");
+    console.log("Result", this.state.data[0]);
     console.log(this.state.data);
-      return (
+    return (
       <Fragment>
         <div id="background">
           <Grid container alignItems="center">
             <Grid item xs={3}>
               <iframe
-                src={"https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="}
+                src={
+                  "https://console.echoar.xyz/webar?key=dry-rain-8136&entry=" +
+                  this.state.data[0]
+                }
                 allow="camera *"
               />
               <Typography>Methane</Typography>
@@ -73,7 +71,9 @@ class ResultPage extends React.Component {
             </Grid>
             <Grid item xs={3}>
               <iframe
-                src={"https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="}
+                src={
+                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="
+                }
                 allow="camera *"
               />
               <Typography>Hydrogen</Typography>
@@ -85,7 +85,9 @@ class ResultPage extends React.Component {
             </Grid>
             <Grid item xs={3}>
               <iframe
-                src={"https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="}
+                src={
+                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry="
+                }
                 allow="camera *"
               />
               <Typography>Water</Typography>
@@ -97,7 +99,6 @@ class ResultPage extends React.Component {
       </Fragment>
     );
   }
-  
-};
+}
 
 export default ResultPage;
