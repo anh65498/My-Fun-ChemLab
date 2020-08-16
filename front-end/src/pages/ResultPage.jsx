@@ -43,7 +43,7 @@ class ResultPage extends React.Component {
         var data_obj = JSON.parse(data);
         var count = Object.keys(data_obj.results).length;
         for (var i = 0; i < count; i++) {
-          if (data_obj.results[i].Reactants === search || data_obj.results[i].Word_Name === search) {
+          if (data_obj.results[i].Reactants === search || data_obj.results[i].Words_Name === search) {
             obj = data_obj.results[i];
             break;
           }
@@ -52,6 +52,8 @@ class ResultPage extends React.Component {
           data: obj,
         });
       });
+
+    
   }
 
   render() {
