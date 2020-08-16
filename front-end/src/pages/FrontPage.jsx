@@ -147,4 +147,4 @@ class FrontPage extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(FrontPage);
+export default withRouter(withStyles(styles, { withTheme: true })(FrontPage));
