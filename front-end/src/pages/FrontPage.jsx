@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import { withRouter, Link as RouterLink, Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,26 +47,35 @@ const inputProps = {
   color: "#000",
 };
 
-const FrontPage = () => {
-  const classes = useStyles();
-  let [chemString, setChemString] = useState("");
+class FrontPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { chemString: "" };
+  }
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    setChemString(event.target.value);
-    console.log(chemString);
-  };
+  // const classes = useStyles();
+  // let [chemString, setChemString] = useState("");
 
-  const handleSubmit = (event) => {
+  handleChange(event) {
     event.preventDefault();
+    this.setState(() => ({
+      chemString: event.target.value,
+    }));
+    console.log(this.state.chemString);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    alert("Submitting");
 
     // BackEnd might need to split by + and send "What's the color of " + element to Google for colors
 
-    if (chemString !== "") {
+    if (this.state.chemString !== "") {
       const data = {
-        chemString, // role is a field in database
+        chemString: this.state.chemString, // role is a field in database
       };
-      console.log(`Sending ${chemString}`);
+      console.log(`Sending ${this.state.chemString}`);
+      this.props.handleProps(this.state.chemString);
 
       // axios
       //   .post("http://hegemon.ucsd.edu:/users/register", data)
@@ -73,70 +83,74 @@ const FrontPage = () => {
       //     console.log(response);
       //   });
     }
-  };
+  }
 
-  return (
-    <Fragment>
-      <Container maxWidth="md">
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          className={classes.container}
-        >
-          <Grid item xs={12}>
-            <Typography
-              display="block"
-              variant="h2"
-              gutterBottom
-              align="center"
-              className={classes.title}
-            >
-              MY FUN CHEM LAB
-            </Typography>
+  render() {
+    const { classes } = this.props;
 
-            {/* <Box display="block"> */}
-
-            <form
-              className={classes.form}
-              onSubmit={handleSubmit}
-              noValidate
-              autoComplete="off"
-            >
-              {/* <Container display="flex" justifyContent="center"> */}
-              <Box>
-                <TextField
-                  id="inputString"
-                  name="reactionString"
-                  label="Reaction"
-                  placeholder="Enter Your Reaction Here (E.g: Cu + H2SO4 -> ). Then click Enter"
-                  variant="filled"
-                  className={classes.textField}
-                  inputProps={inputProps}
-                  fullWidth
-                  onKeyUp={handleChange}
-                  color="primary"
-                />
-              </Box>
-              {/* </Box> */}
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.submitButton}
-                component={RouterLink}
-                to="/result"
+    return (
+      <Fragment>
+        <Container maxWidth="md">
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            className={classes.container}
+          >
+            <Grid item xs={12}>
+              <Typography
+                display="block"
+                variant="h2"
+                gutterBottom
+                align="center"
+                className={classes.title}
               >
-                Enter
-              </Button>
-              {/* </Container> */}
-            </form>
+                MY FUN CHEM LAB
+              </Typography>
+
+              {/* <Box display="block"> */}
+
+              <form
+                className={classes.form}
+                onSubmit={this.handleSubmit}
+                noValidate
+                autoComplete="off"
+              >
+                {/* <Container display="flex" justifyContent="center"> */}
+                <Box>
+                  <TextField
+                    id="inputString"
+                    name="reactionString"
+                    label="Reaction"
+                    placeholder="Enter Your Reaction Here (E.g: Cu + H2SO4 -> ). Then click Enter"
+                    variant="filled"
+                    className={classes.textField}
+                    inputProps={inputProps}
+                    fullWidth
+                    onChange={this.handleChange}
+                    color="primary"
+                  />
+                </Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  className={classes.submitButton}
+                  component={RouterLink}
+                  to="/result"
+                >
+                  Enter
+                </Button>
+
+                {/* </Container> */}
+              </form>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </Fragment>
-  );
-};
+        </Container>
+      </Fragment>
+    );
+  }
+}
 
 export default withRouter(FrontPage);

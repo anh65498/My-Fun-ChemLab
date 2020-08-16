@@ -14,9 +14,11 @@ const styles = (theme) => ({
 
 // @alexandra_chirita changed the name from const to class
 class ResultPage extends React.Component {
-  constructor() {
-    super();
-    this.state = { data: {} };
+  constructor(props) {
+    super(props);
+    this.state = { data: this.props.chemString };
+    console.log("Resulting Page");
+    console.log(this.props.chemString);
   }
 
   // @alexandra_chirita added function for database query
@@ -103,7 +105,8 @@ class ResultPage extends React.Component {
             </Grid>
           </Grid>
           <Typography variant="h3" className={classes.fullReaction}>
-            H2O + CO2 = H2CO3
+            {/* H2O + CO2 = H2CO3 */}
+            {this.props.chemString}
           </Typography>
         </div>
       </Fragment>
