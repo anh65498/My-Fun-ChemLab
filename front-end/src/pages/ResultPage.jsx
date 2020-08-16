@@ -16,7 +16,7 @@ const styles = (theme) => ({
 class ResultPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: this.props.chemString };
+    this.state = { data: this.props.chemString, wolfram: this.props.chemString};
     console.log("Resulting Page");
     console.log(this.props.chemString);
   }
@@ -51,13 +51,43 @@ class ResultPage extends React.Component {
         self.setState({
           data: obj,
         });
+      })
+      .then(function() {
+        fetch(
+          "http://techack.pythonanywhere.com/wolfram/" + search,
+          {
+            method: "GET",
+            mode: 'cors'
+          }
+        )
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+          console.log(data);
+          self.setState({
+            wolfram: data,
+          });
+        });
       });
 
-    
+   
   }
 
   render() {
     const { classes } = this.props; // for styling
+
+    if (this.state.data === null) {
+      return  (<h3>404 - Not found</h3>);
+    }
+
+    let formula;
+    //if (JSON.stringify(this.state.wolftam).includes("Internal Server Error")) {
+    //  formula = this.props.chemString;
+    //} else {
+      formula = this.state.wolfram;
+    //}
+
     return (
       <Fragment>
         <div id="background">
@@ -104,8 +134,7 @@ class ResultPage extends React.Component {
             </Grid>
           </Grid>
           <Typography variant="h3" className={classes.fullReaction}>
-            {/* H2O + CO2 = H2CO3 */}
-            {this.state.data.Words_Name + " -> " + this.state.data.Words_Result}
+            {formula}
           </Typography>
         </div>
       </Fragment>
