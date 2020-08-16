@@ -68,7 +68,7 @@ class ResultPage extends React.Component {
                 }
                 allow="camera *"
               />
-              <Typography variant="h5">this.state.data.Reactant1</Typography>
+              <Typography variant="h5">{this.state.data.Reactant1}</Typography>
             </Grid>
             <Grid item xs={1}>
               <Typography variant="h1" display="inline">
@@ -78,12 +78,12 @@ class ResultPage extends React.Component {
             <Grid item xs={3}>
               <iframe
                src={
-                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=" +
+                  "https://console.echoar.xyz/webar?key=dry-rain-8136&entry=" +
                   this.state.data.EchoAR_Link2
                 }
                 allow="camera *"
               />
-              <Typography variant="h5">this.state.data.Reactant2</Typography>
+              <Typography variant="h5">{this.state.data.Reactant2}</Typography>
             </Grid>
             <Grid item xs={2}>
               <Typography variant="h1" display="inline">
@@ -93,12 +93,12 @@ class ResultPage extends React.Component {
             <Grid item xs={3}>
               <iframe
                src={
-                  "https://console.echoar.xyz/webar?key=aged-poetry-0182&entry=" +
+                  "https://console.echoar.xyz/webar?key=dry-rain-8136&entry=" +
                   this.state.data.EchoAR_Link3
                 }
                 allow="camera *"
               />
-              <Typography variant="h5">this.state.data.Words_Result</Typography>
+              <Typography variant="h5">{this.state.data.Words_Result}</Typography>
             </Grid>
           </Grid>
           <Typography variant="h3" className={classes.fullReaction}>
