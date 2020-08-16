@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import { withRouter, Link as RouterLink, Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -9,9 +9,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
@@ -40,32 +41,41 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     padding: theme.spacing(2, 10),
   },
-}));
+});
 
 const inputProps = {
   color: "#000",
 };
 
-const FrontPage = () => {
-  const classes = useStyles();
-  let [chemString, setChemString] = useState("");
+class FrontPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { chemString: "" };
+  }
 
-  const handleChange = (event) => {
+  handleChange = (event) => {
     event.preventDefault();
-    setChemString(event.target.value);
-    console.log(chemString);
+    const input = event.target.value;
+
+    this.setState(() => ({
+      chemString: input,
+    }));
+    console.log(this.state.chemString);
   };
 
-  const handleSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
+    alert("Submitting");
 
     // BackEnd might need to split by + and send "What's the color of " + element to Google for colors
 
-    if (chemString !== "") {
+    if (this.state.chemString !== "") {
       const data = {
-        chemString, // role is a field in database
+        chemString: this.state.chemString, // role is a field in database
       };
-      console.log(`Sending ${chemString}`);
+      console.log(`Sending ${this.state.chemString}`);
+      this.props.handleProps(this.state.chemString);
+      this.props.history.push("/result");
 
       // axios
       //   .post("http://hegemon.ucsd.edu:/users/register", data)
@@ -75,68 +85,66 @@ const FrontPage = () => {
     }
   };
 
-  return (
-    <Fragment>
-      <Container maxWidth="md">
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          className={classes.container}
-        >
-          <Grid item xs={12}>
-            <Typography
-              display="block"
-              variant="h2"
-              gutterBottom
-              align="center"
-              className={classes.title}
-            >
-              MY FUN CHEM LAB
-            </Typography>
+  render() {
+    const { classes } = this.props;
 
-            {/* <Box display="block"> */}
-
-            <form
-              className={classes.form}
-              onSubmit={handleSubmit}
-              noValidate
-              autoComplete="off"
-            >
-              {/* <Container display="flex" justifyContent="center"> */}
-              <Box>
-                <TextField
-                  id="inputString"
-                  name="reactionString"
-                  label="Reaction"
-                  placeholder="Enter Your Reaction Here (E.g: Cu + H2SO4 -> ). Then click Enter"
-                  variant="filled"
-                  className={classes.textField}
-                  inputProps={inputProps}
-                  fullWidth
-                  onKeyUp={handleChange}
-                  color="primary"
-                />
-              </Box>
-              {/* </Box> */}
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.submitButton}
-                component={RouterLink}
-                to="/result"
+    return (
+      <Fragment>
+        <Container maxWidth="md">
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            className={classes.container}
+          >
+            <Grid item xs={12}>
+              <Typography
+                display="block"
+                variant="h2"
+                gutterBottom
+                align="center"
+                className={classes.title}
               >
-                Enter
-              </Button>
-              {/* </Container> */}
-            </form>
-          </Grid>
-        </Grid>
-      </Container>
-    </Fragment>
-  );
-};
+                MY FUN CHEM LAB
+              </Typography>
 
-export default withRouter(FrontPage);
+              <form
+                className={classes.form}
+                onSubmit={this.handleSubmit}
+                noValidate
+                autoComplete="off"
+              >
+                <Box>
+                  <TextField
+                    id="inputString"
+                    name="reactionString"
+                    label="Reaction"
+                    placeholder="Enter Your Reaction Here (E.g: Cu + H2SO4 -> ). Then click Enter"
+                    variant="filled"
+                    className={classes.textField}
+                    inputProps={inputProps}
+                    fullWidth
+                    onChange={this.handleChange}
+                    color="primary"
+                  />
+                </Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  className={classes.submitButton}
+                  to="/result"
+                >
+                  Enter
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
+        </Container>
+      </Fragment>
+    );
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(FrontPage);
