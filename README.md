@@ -2,6 +2,8 @@
 Demo to the video
 https://drive.google.com/file/d/1eJEkasv-XAglryK30VGNwOsIK9n4Val9/view
 
+Deployed app:
+https://techack.ew.r.appspot.com
 Instructions:
 1. Install React JS
 2. enter the front-end folder
