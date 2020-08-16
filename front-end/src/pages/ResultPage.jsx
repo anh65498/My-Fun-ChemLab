@@ -83,9 +83,9 @@ class ResultPage extends React.Component {
 
     let formula;
     //if (JSON.stringify(this.state.wolftam).includes("Internal Server Error")) {
-    //  formula = this.props.chemString;
+      formula = this.props.chemString;
     //} else {
-      formula = this.state.wolfram;
+    //  formula = this.state.wolfram;
     //}
 
     return (
